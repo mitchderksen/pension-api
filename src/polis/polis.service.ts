@@ -9,20 +9,16 @@ export class PolisService {
   }
 
   addPolis(polisDto: PolisDTO): PolisDTO {
-    if (!polisDto) {
-      throw new BadRequestException('No polis specified');
-    }
     this.polis.push(polisDto);
 
     return polisDto;
   }
 
   deletePolis(policyNumber: number): void {
-    console.log(policyNumber);
     const found = this.polis.findIndex(
       (polis: PolisDTO) => polis.policyNumber === policyNumber,
     );
-    if (!found) {
+    if (found === -1) {
       throw new BadRequestException(`Nothing found with id ${policyNumber}`);
     }
     this.polis.splice(found, 1);
